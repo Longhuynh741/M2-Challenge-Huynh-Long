@@ -1,0 +1,54 @@
+openapi: 3.0.3
+info:
+  title: Api Documentation
+  description: Api Documentation
+  termsOfService: 'urn:tos'
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0'
+  version: '1.0'
+servers:
+  - url: 'http://localhost:8080'
+    description: Inferred Url
+tags:
+  - name: magic-ball-controller
+    description: Magic Ball Controller
+paths:
+  /magic:
+    post:
+      tags:
+        - magic-ball-controller
+      summary: getAnswer
+      operationId: getAnswerUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Question'
+      responses:
+        '201':
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Question'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+components:
+  schemas:
+    Question:
+      title: Question
+      type: object
+      properties:
+        answer:
+          type: string
+        id:
+          type: integer
+          format: int32
+        question:
+          type: string
